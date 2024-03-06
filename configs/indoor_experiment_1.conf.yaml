@@ -41,7 +41,7 @@ fields:
     repositories:
     - url: 'https://github.com/lcas/environment_template'
       branch: 'riseholme_park_general_east_pathway'
-      #branch: 'riseholme_park_farm_general_general_east_pathway'
+      #branch: 'riseholme_park_farm_general_east_pathway'
 
   - name: 'north_roadway'
     ws_name: 'north_roadway_ws'

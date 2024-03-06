@@ -9,7 +9,7 @@ source ./ffr.sh
 export option1=''
 export option2=''
 
-function f () {
+function construct_ffr_workspaces () {
 
     if [ -n "$1" ]; then export option1=$1; else export option1=''; fi
     if [ -n "$2" ]; then export option2=$2; else export option2=''; fi
@@ -94,7 +94,3 @@ function opt1_git() {
 function opt1_tmule() {
     echo "Option [1]; TMuLe Control selected."
 }
-
-
-
-#f
