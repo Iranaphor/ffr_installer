@@ -1,0 +1,52 @@
+
+# Additional information to add to the ~/.bashrc file
+ws_dir: '/home/james/experiments/indoor_experiment_1'
+
+
+# Details on which repositories to construct used by both the fields and farm
+shared:
+  ws_name: 'shared_ws'
+  repositories:
+
+  - url: 'https://github.com/iranaphor/farm_coordination_systems'
+    branch: 'main'
+
+  - url: 'https://github.com/lcas/environment_common'
+    branch: 'main'
+
+  - url: 'https://github.com/lcas/topological_navigation'
+    branch: 'humble-dev'
+
+
+# Details on how to construct the farm workspace
+farm:
+  name: 'riseholme_park_farm'
+  ws_name: 'farm_ws'
+  repositories: {}
+
+
+# Details on which workspaces to construct for individual fields
+fields:
+  - name: 'general_central_pathway'
+    ws_name: 'general_central_pathway_ws'
+    id: 0
+    repositories:
+    - url: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_general_central_pathway'
+      #branch: 'riseholme_park_farm_general_central_pathway'
+
+  - name: 'general_east_pathway'
+    ws_name: 'general_east_pathway_ws'
+    id: 1
+    repositories:
+    - url: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_general_east_pathway'
+      #branch: 'riseholme_park_farm_general_general_east_pathway'
+
+  - name: 'north_roadway'
+    ws_name: 'north_roadway_ws'
+    id: 2
+    repositories:
+    - url: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_north_roadway'
+      #branch: 'riseholme_park_farm_north_roadway'

@@ -1,0 +1,116 @@
+
+# Additional information to add to the ~/.bashrc file
+bash:
+  - "export WS_DIR=~/ros2_riseholme_park_fields"
+  - "''"
+  - "''"
+  - "# Identify Farm TMuLe"
+  - "export FFR_FARM_SHARE=$WS_DIR/shared_ws/install/ffr_farm/share/ffr_farm"
+  - "export farmTm=$FFR_FARM_SHARE/tmule/farm_example.tmule.yaml"
+  - "''"
+  - "''"
+  - "# Identify Field TMuLe"
+  - "export FFR_FIELD_SHARE=$WS_DIR/shared_ws/install/ffr_ield/share/ffr_field"
+  - "export fieldTm=$FFR_SHARE/tmule/field_example.tmule.yaml"
+  - "''"
+  - "''"
+  - "# Define TMuLe launch functions"
+  - "function rename () { tmux rename-session -t field_1_example $1 ; }"
+  - "function set_source () { "
+  - "    echo 'source $WS_DIR/$1/install/setup.bash' > ~/.field_source ;"
+  - "}"
+  - "function farm () { set_source farm_ws ; tmule -c $farmTm $1 ; }"
+  - "function field () { set_source $1_ws ; tmule -c $fieldTm $2 ; rename $1 ; }"
+
+
+ws_dir: '/home/james/ros2_riseholme_park_fields_2'
+
+
+# Details on which repositories to construct used by both the fields and farm
+shared:
+  ws_name: 'shared_ws'
+  repositories:
+
+  - repository: 'https://github.com/lcas/environment_common'
+    branch: 'main'
+
+  - repository: 'https://github.com/lcas/farm_coordination_systems'
+    branch: 'main'
+
+  - repository: 'https://github.com/lcas/topological_navigation'
+    branch: 'humble-dev'
+
+
+# Details on how to construct the farm workspace
+farm:
+  name: 'riseholme_park_farm'
+  ws_name: 'farm_ws'
+  repositories: {}
+
+
+# Details on which workspaces to construct for individual fields
+fields:
+  - name: '40_acre'
+    ws_name: '40_acre_ws'
+    id: 1
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_40_acre'
+
+  - name: 'bullock_close'
+    ws_name: 'bullock_close_ws'
+    id: 2
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_bulluck_close'
+
+  - name: 'general_central_pathway'
+    ws_name: 'general_central_pathway_ws'
+    id: 3
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_general_central_pathway'
+
+  - name: 'general_east_pathway'
+    ws_name: 'general_east_pathway_ws'
+    id: 4
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_general_general_east_pathway'
+
+  - name: 'general_south_pathway'
+    ws_name: 'general_south_pathway_ws'
+    id: 5
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_general_general_south_pathway'
+
+  - name: 'hall_forrest'
+    ws_name: 'hall_forrest_ws'
+    id: 6
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_general_hall_forrest'
+
+  - name: 'north_roadway'
+    ws_name: 'north_roadway_ws'
+    id: 7
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_general_north_roadway'
+
+  - name: 'strawberry_polytunnels'
+    ws_name: 'strawberry_polytunnels_ws'
+    id: 8
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_general_strawberry_polytunnels'
+
+  - name: 'walled_garden'
+    ws_name: 'walled_garden_ws'
+    id: 9
+    environment_template:
+      repository: 'https://github.com/lcas/environment_template'
+      branch: 'riseholme_park_farm_general_walled_garden'
+
+
