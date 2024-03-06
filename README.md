@@ -12,6 +12,8 @@ Select a control category:
 # 
 ```
 
+To skip iotions use: `ffr_control 1 1 1 0`
+
 To install the workspaces based on a config file, ensure the config is located in theconfigs folder, type 0, and click ENTER.
 ```
 Option [0]; Install selected.
