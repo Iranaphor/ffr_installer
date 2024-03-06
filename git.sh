@@ -9,7 +9,7 @@ function get_git_status() {
         echo " "
     done
 }
-function get_status_fields() { get_git_status ~/ros2_riseholme_park_fields ; }
+#function get_status_fields() { get_git_status ~/ros2_riseholme_park_fields ; }
 function get_status_here() { get_git_status . ; }
 
 

@@ -43,8 +43,8 @@ for repo in repositories:
 fields_ws = ws+'/'+'fields'
 os.makedirs(fields_ws, exist_ok=True)
 for field in config['fields']:
-    os.makedirs(fields_ws+'/'+field['ws_name'], exist_ok=True)
-    os.chdir(fields_ws+'/'+field['ws_name'])
+    os.makedirs(fields_ws+'/'+field['ws_name']+'/src/', exist_ok=True)
+    os.chdir(fields_ws+'/'+field['ws_name']+'/src/')
     repositories=field['repositories']
     for repo in repositories:
         subprocess.check_output(["git", "clone", repo['url'], "-b", repo['branch']], text=True)

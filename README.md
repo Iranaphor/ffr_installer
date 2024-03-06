@@ -3,7 +3,7 @@
 To construct the worspaces take the following steps in your terminal:
 ```
 $ . manage.sh
-$ construct_ffr_workspaces
+$ ffr_control
 
 Select a control category:
     [0] Install

@@ -9,88 +9,126 @@ source ./ffr.sh
 export option1=''
 export option2=''
 
-function construct_ffr_workspaces () {
+function ffr_control () {
 
-    if [ -n "$1" ]; then export option1=$1; else export option1=''; fi
-    if [ -n "$2" ]; then export option2=$2; else export option2=''; fi
+    if [ -n "$1" ]; then export option_0=$1; else export option_0=''; fi
+    if [ -n "$3" ]; then export option_1=$2; else export option_1=''; fi
+    if [ -n "$4" ]; then export option_1_0=$3; else export option_1_0=''; fi
+    if [ -n "$4" ]; then export option_1_1=$3; else export option_1_1=''; fi
+    if [ -n "$4" ]; then export option_1_1_0=$4; else export option_1_1_0=''; fi
+    if [ -n "$4" ]; then export option_1_1_1=$4; else export option_1_1_1=''; fi
 
     clear
-    if [ -z "${option1}" ]; then
-        echo "Select a control category:"
-        echo "    [0] Install"
-        echo "    [1] Git"
-        echo "    [2] TMuLe"
-        read -p "# " option1
-    fi
 
-    # Instal control selected
-    if [[ ${option1} = '0' ]] ; then
-        opt1_install
+    # Save a config file name to $selected_config
+    opt_0config
 
-    # TMuLe control selected
-    elif [[ ${option1} = '1' ]] ; then
-        opt1_git
-
-    # Git Control selected
-    elif [[ ${option1} = '2' ]] ; then
-        opt1_tmule
-    fi
-
+    # Select what to do with configuration
+    opt_1control
 }
 
-
-function opt1_install() {
+function opt_0config() {
     source ./ffr.sh
-
-    echo "Option [0]; Install selected."
-    echo -e "\n\n"
     configs=$(get_configs)
-
-    if [ -z "$option2" ]; then
+    if [ -z "$option_0" ]; then
         echo "Select an install configuration:"
         i=1
         for config in $configs
         do
-          echo [$i] $config
-          i=$(($i+1))
+            echo [$i] $config
+            i=$(($i+1))
         done
-        read -p "# " option2
+        read -p "# " option_0
     fi
 
-    item=$(echo $configs | cut -d ' ' -f $option2)
-    echo "Selected ${item}"
-    python3 install_config.py $item
+    export selected_config=$(echo $configs | cut -d ' ' -f $option_0)
+    echo "Option [${option_1}] ${selected_config}"
 }
 
-function opt1_git() {
-    echo "Option [1]; Git Control selected."
-    echo -e "\n\n"
 
-    if [ -z "${option2}" ]; then
+function opt_1control () {
+    if [ -z "${option_1}" ]; then
+        echo "Select a control category:"
+        echo "    [0] Install"
+        echo "    [1] Manage"
+        read -p "# " option_1
+    fi
+
+    # Install selected
+    if [[ ${option_1} = '0' ]] ; then
+        opt_1control_0install
+    # Manage selected
+    elif [[ ${option_1} = '1' ]] ; then
+        opt_1control_1manage
+    fi
+}
+
+function opt_1control_0install() {
+    echo "Option [0]; Install selected."
+    echo -e "\n"
+    echo "Installing ${selected_config}..."
+    python3 install_config.py $selected_config
+}
+function opt_1control_1manage() {
+    echo "Option [1]; Manage selected."
+
+    # Select what to do with configuration
+    if [ -z "${option_1_1}" ]; then
+        echo -e "\n"
+        echo "Select a control category:"
+        echo "    [0] TMuLe"
+        echo "    [1] Git"
+        read -p "# " option_1_1
+    fi
+
+    # TMuLe Control selected
+    if [[ ${option_1_1} = '0' ]] ; then
+        opt_1control_1manage_0tmule
+    # Git Control selected
+    elif [[ ${option_1_1} = '1' ]] ; then
+        opt_1control_1manage_1git
+    fi
+
+}
+
+function opt_1control_1manage_0tmule() {
+    echo "Option [0]; TMuLe Control selected."
+}
+
+function opt_1control_1manage_1git() {
+    echo "Option [1]; Git Control selected."
+
+    if [ -z "${option_1_1_1}" ]; then
+    echo -e "\n\n"
         echo "Select a git process"
-        echo "    [1] Status"
-        echo "    [2] Pull"
-        echo "    [3] Checkout"
-        read -p "# " option2
+        echo "    [0] Status"
+        echo "    [1] Pull"
+        echo "    [2] Checkout"
+        read -p "# " option_1_1_1
     fi
 
     # Git Control selected
-    if [[ ${option2} = '1' ]] ; then
-        echo "Option [1]; Git Status selected."
+    if [[ ${option_1_1_1} = '0' ]] ; then
+        echo "Option [0]; Git Status selected."
+        python3 check_git_status.py $selected_config
 
-        for field in get_fields
-        do
-          get_git_status $field
-        done
+    elif [[ ${option_1_1_1} = '1' ]] ; then
+        echo "Option [1]; Git Pull selected."
 
-    elif [[ ${option2} = '2' ]] ; then
-        echo "Option [2]; Git Pull selected."
-
-    elif [[ ${option2} = '3' ]] ; then
-        echo "Option [3]; Git Checkout selected."
+    elif [[ ${option_1_1_1} = '2' ]] ; then
+        echo "Option [2]; Git Checkout selected."
     fi
 }
 
-function opt1_tmule() {
-    echo "Option [1]; TMuLe Control selected."
-}
+
+# config
+# - get config
+# install
+# - 
+# - manage
+#
+#
+#
+#
+#
+#
