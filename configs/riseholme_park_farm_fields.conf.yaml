@@ -11,7 +11,7 @@ bash:
   - "''"
   - "# Identify Field TMuLe"
   - "export FFR_FIELD_SHARE=$WS_DIR/shared_ws/install/ffr_ield/share/ffr_field"
-  - "export fieldTm=$FFR_SHARE/tmule/field_example.tmule.yaml"
+  - "export fieldTm=$FFR_FIELD_SHARE/tmule/field_example.tmule.yaml"
   - "''"
   - "''"
   - "# Define TMuLe launch functions"
@@ -23,7 +23,7 @@ bash:
   - "function field () { set_source $1_ws ; tmule -c $fieldTm $2 ; rename $1 ; }"
 
 
-ws_dir: '/home/james/ros2_riseholme_park_fields_2'
+ws_dir: '/home/james/experiments/ros2_riseholme_park_fields_2'
 
 
 # Details on which repositories to construct used by both the fields and farm

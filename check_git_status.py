@@ -12,15 +12,16 @@ with open(filename) as f:
     config = yaml.safe_load(f.read())
 
 def check_status(conf, src):
-    print('-------------------------------')
+    print('-------------------------------', '\n')
     print(conf['ws_name'])
     _repositories=conf['repositories']
     for _repo in _repositories:
         _dir = _repo['url'].split('/')[-1]
         os.chdir(src+_dir)
-        print('> ', _dir, '\n')
+        print('\n', '> ', _dir)
         print(subprocess.check_output(["git", "status",  "|", "grep", '"On\|Your"'], text=True))
-        print(subprocess.check_output(["git", "status",  "-s"], text=True))
+        s2=subprocess.check_output(["git", "status",  "-s", "|"], text=True)
+        if s2: print(s2)
 
 # Identify principle workspace
 ws=config['ws_dir']
