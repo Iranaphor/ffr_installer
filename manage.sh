@@ -11,6 +11,7 @@ export option2=''
 
 function ffr_control () {
 
+    # Manage input args
     if [ -n "$1" ]; then export option_0=$1; else export option_0=''; fi
     if [ -n "$2" ]; then export option_1=$2; else export option_1=''; fi
     if [ -n "$3" ]; then export option_1_0=$3; else export option_1_0=''; fi
@@ -18,7 +19,7 @@ function ffr_control () {
     if [ -n "$4" ]; then export option_1_1_0=$4; else export option_1_1_0=''; fi
     if [ -n "$4" ]; then export option_1_1_1=$4; else export option_1_1_1=''; fi
     if [ -n "$5" ]; then export option_1_1_0_0=$5; else export option_1_1_0_0=''; fi
-
+    if [ -n "$6" ]; then export option_1_1_0_1=$6; else export option_1_1_0_1=''; fi
     #clear
 
     # Save a config file name to $selected_config
@@ -117,54 +118,79 @@ function opt_1control_1manage_0tmule() {
     export short_tmule=$(echo ${selected_tmule} | sed "s|$ws||g")
     echo "Option [${option_1_1_0}]: $short_tmule"
 
+    # Select workspace from which to run this file within
+    if [ -z "${option_1_1_0_0}" ]; then
+        echo ""
+        source ./ffr.sh
+        ws_list=$(get_ws_list ${ws})
+
+        echo "Select a workspace to action the tmule file."
+        i=1
+        for ws_i in $ws_list
+        do
+            echo [$i] $(echo ${ws_i} | sed "s|${ws}\/||g")
+            i=$(($i+1))
+        done
+        read -p "# " option_1_1_0_0
+    fi
+    export selected_ws=$(echo $ws_list | cut -d ' ' -f $option_1_1_0_0)
+    export short_ws=$(echo ${selected_ws} | sed "s|$ws||g" | sed "s|^/||g")
+    echo "Option [${option_1_1_0_0}]: $short_ws"
+
     # Select action to take with file
-    opt_1control_1manage_0tmule_0action
+    opt_1control_1manage_0tmule_1action
 }
 
 
-function opt_1control_1manage_0tmule_0action() {
+function opt_1control_1manage_0tmule_1action() {
 
-    if [ -z "${option_1_1_0_0}" ]; then
+    if [ -z "${option_1_1_0_1}" ]; then
         echo ""
         echo "Select a TMuLe process"
         echo "    [0] Launch"
         echo "    [1] Stop"
         echo "    [2] Terminate"
-        read -p "# " option_1_1_0_0
+        read -p "# " option_1_1_0_1
     fi
 
-    # Identify Farm TMuLe
-    export FFR_FARM_SHARE=$WS_DIR/shared_ws/install/ffr_farm/share/ffr_farm
-    export farmTm=$FFR_FARM_SHARE/tmule/farm_example.tmule.yaml
-
-    # Identify Field TMuLe
-    export FFR_FIELD_SHARE=$WS_DIR/shared_ws/install/ffr_field/share/ffr_field
-    export fieldTm=$FFR_FIELD_SHARE/tmule/field_example.tmule.yaml
-
-    # Define TMuLe launch functions
-    function rename () { tmux rename-session -t field_1_example $1 ; }
     function set_source () {
         echo 'source $WS_DIR/$1/install/setup.bash' > ~/.field_source ;
     }
     function farm () { set_source farm_ws ; tmule -c $farmTm $1 ; }
     function field () { set_source $1_ws ; tmule -c $fieldTm $2 ; rename $1 ; }
-
+    function f1 () { field waled_garden; }
 
     # Git Control selected
-    if [[ ${option_1_1_0_0} = '0' ]] ; then
+    export session_name=$(echo ${short_ws} | sed "s|/|_|g")
+    if [[ ${option_1_1_0_1} = '0' ]] ; then
         echo "Option [0]; TMuLe Launch selected."
-        echo "tmule -c $selected_tmule launch"
-        echo "tmux rename-session -t $tmule_session $1"
+        echo ""
+        cd $selected_ws
+        echo ""
+        tmule -c $selected_tmule launch
+        echo ""
+        cd $OLD_PWD
+        echo ""
+        tmux rename-session -t $tmule_session $session_name
+        echo ""
 
-    elif [[ ${option_1_1_0_0} = '1' ]] ; then
-        echo "Option [1]; TMuLe Launch selected."
-        echo "tmux rename-session -t $tmule_session $1"
-        echo "tmule -c $selected_tmule stop"
+    elif [[ ${option_1_1_0_1} = '1' ]] ; then
+        echo "Option [1]; TMuLe Stop selected."
+        echo ""
+        tmux rename-session -t $tmule_session $session_name
+        echo ""
+        tmule -c $selected_tmule stop
+        echo ""
+        tmux rename-session -t $session_name $tmule_session
+        echo ""
 
-    elif [[ ${option_1_1_0_0} = '2' ]] ; then
+    elif [[ ${option_1_1_0_1} = '2' ]] ; then
         echo "Option [2]; TMuLe Terminate selected."
-        echo "tmux rename-session -t $1 $tmule_session"
-        echo "tmule -c $selected_tmule terminate"
+        echo ""
+        tmux rename-session -t $session_name $tmule_session
+        echo ""
+        tmule -c $selected_tmule terminate
+        echo ""
     fi
 }
 

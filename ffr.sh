@@ -13,3 +13,7 @@ function get_tmules () {
 function get_ws () {
     cat $1 | grep "^ws_dir: '" | sed "s|ws_dir: '||g" | sed "s|'||g"
 }
+
+function get_ws_list () {
+    find $1 -type d -name 'src' | grep -v '/src/.*/src' | sed "s|/src||g"
+}
