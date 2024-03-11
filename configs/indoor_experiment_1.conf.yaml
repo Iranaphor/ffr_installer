@@ -17,11 +17,15 @@ shared:
   - url: 'https://github.com/lcas/topological_navigation'
     branch: 'humble-dev'
 
+#  - url: 'https://github.com/lcas/environment_template'
+#    branch: 'main'
+
 
 # Details on how to construct the farm workspace
 farm:
   name: 'riseholme_park_farm'
   ws_name: 'farm_ws'
+  ros_domain_id: 200
   repositories: {}
 
 
@@ -30,6 +34,7 @@ fields:
   - name: 'general_central_pathway'
     ws_name: 'general_central_pathway_ws'
     id: 0
+    ros_domain_id: 201
     repositories:
     - url: 'https://github.com/lcas/environment_template'
       branch: 'riseholme_park_general_central_pathway'
@@ -38,6 +43,7 @@ fields:
   - name: 'general_east_pathway'
     ws_name: 'general_east_pathway_ws'
     id: 1
+    ros_domain_id: 202
     repositories:
     - url: 'https://github.com/lcas/environment_template'
       branch: 'riseholme_park_general_east_pathway'
@@ -46,6 +52,7 @@ fields:
   - name: 'north_roadway'
     ws_name: 'north_roadway_ws'
     id: 2
+    ros_domain_id: 203
     repositories:
     - url: 'https://github.com/lcas/environment_template'
       branch: 'riseholme_park_north_roadway'

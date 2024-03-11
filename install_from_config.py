@@ -22,21 +22,25 @@ os.chdir(ws)
 
 
 # Construct Shared Workpsace
-shared_ws = ws+'/'+config['shared']['ws_name']+'/src/'
-os.makedirs(shared_ws, exist_ok=True)
-os.chdir(shared_ws)
+shared_ws = ws+'/'+config['shared']['ws_name']
+os.makedirs(shared_ws+'/src/', exist_ok=True)
+os.chdir(shared_ws+'/src/')
 repositories=config['shared']['repositories']
 for repo in repositories:
     subprocess.check_output(["git", "clone", repo['url'], "-b", repo['branch']], text=True)
+os.chdir(shared_ws)
+subprocess.check_output(["colcon", "build", "--symlink-install"], text=True)
 
 
 # Make farm workspace
-farm_ws   = ws+'/'+config['farm']['ws_name']+'/src/'
-os.makedirs(farm_ws, exist_ok=True)
-os.chdir(farm_ws)
+farm_ws = ws+'/'+config['farm']['ws_name']
+os.makedirs(farm_ws+'/src/', exist_ok=True)
+os.chdir(farm_ws+'/src/')
 repositories=config['farm']['repositories']
 for repo in repositories:
     subprocess.check_output(["git", "clone", repo['url'], "-b", repo['branch']], text=True)
+os.chdir(farm_ws)
+subprocess.check_output(["colcon", "build", "--symlink-install"], text=True)
 
 
 # Make field workspaces
@@ -48,4 +52,5 @@ for field in config['fields']:
     repositories=field['repositories']
     for repo in repositories:
         subprocess.check_output(["git", "clone", repo['url'], "-b", repo['branch']], text=True)
-
+    os.chdir(fields_ws+'/'+field['ws_name'])
+    subprocess.check_output(["colcon", "build", "--symlink-install"], text=True)

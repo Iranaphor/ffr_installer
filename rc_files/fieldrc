@@ -1,0 +1,86 @@
+#! /bin/bash
+
+# SET FARM VALUES
+#export FARM_IP='0.0.0.0'
+#export FARM_MQTT_BROKER_PORT='8886'
+#export FARM_MQTT_NS="$FARM_NAME"
+[ -f $HOME/.farmrc ] && source $HOME/.farmrc
+
+
+# SET DEFAULT FIELD VALUES
+export FIELD_IP='0.0.0.0'
+export FIELD_MQTT_BROKER_PORT='8884'
+export FIELD_MQTT_NS="$FIELD_NAME"
+
+
+# SET DEFAULT ROS VALUES
+export ROS_DOMAIN_ID=200
+
+###############################################################
+echo $FIELD_NAME
+
+## strawberry_polytunnel
+if [ $FIELD_NAME == 'strawberry_polytunnel' ]
+then
+    export ROS_DOMAIN_ID=201
+
+## general_east_pathway
+elif [ $FIELD_NAME == 'general_east_pathway' ]
+then
+    export ROS_DOMAIN_ID=202
+
+## general_central_pathway
+elif [ $FIELD_NAME == 'general_central_pathway' ]
+then
+    export ROS_DOMAIN_ID=203
+
+## walled_garden
+elif [ $FIELD_NAME == 'walled_garden' ]
+then
+    export ROS_DOMAIN_ID=204
+
+## hall_forrest
+elif [ $FIELD_NAME == 'hall_forrest' ]
+then
+    export ROS_DOMAIN_ID=205
+
+## bullock_close
+elif [ $FIELD_NAME == 'bullock_close' ]
+then
+    export ROS_DOMAIN_ID=206
+
+## general_south_pathway
+elif [ $FIELD_NAME == 'general_south_pathway' ]
+then
+    export ROS_DOMAIN_ID=207
+
+## 40_acre
+elif [ $FIELD_NAME == '40_acre' ]
+then
+    export ROS_DOMAIN_ID=208
+
+## north_roadway
+elif [ $FIELD_NAME == 'north_roadway' ]
+then
+    export ROS_DOMAIN_ID=209
+
+## if field not specified, trigger ROS error
+else
+    export ROS_DOMAIN_ID=233
+fi
+###############################################################
+
+#echo "FARM ENVIRONMENT VARIABLES SET"
+#echo "    export FARM_IP=$FARM_IP"
+#echo "    export FARM_MQTT_BROKER_PORT=$FARM_MQTT_BROKER_PORT"
+#echo "    export FARM_MQTT_NS=$FARM_MQTT_NS"
+echo "FIELD ENVIRONMENT VARIABLES SET"
+echo "    export FIELD_IP=$FIELD_IP"
+echo "    export FIELD_MQTT_BROKER_PORT=$FIELD_MQTT_BROKER_PORT"
+echo "    export FIELD_MQTT_NS=$FIELD_MQTT_NS"
+echo "    export ROS_DOMAIN_ID=$ROS_DOMAIN_ID"
+echo ""
+echo "IMPORTANT:"
+echo "Ensure you rename the field session before launching a second field."
+echo "    'tmux rename-session -t field_1_example $FARM_NAME_$FIELD_NAME'"
+echo ""

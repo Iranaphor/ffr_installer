@@ -70,8 +70,36 @@ function opt_1control_0install() {
     echo "Option [0]; Install selected."
     echo ""
     echo "Installing ${selected_config}..."
-    python3 install_config.py $selected_config
+
+    # Reset ROS environment before installation
+    export PYTHONPATH=
+    export AMENT_PREFIX_PATH=
+    export CMAKE_PREFIX_PATH=
+    export COLCON_PREFIX_PATH=
+    source /opt/ros/humble/setup.bash
+
+    # Download and compile repositories from config
+    python3 install_from_config.py $selected_config
+
+    # Put configuration into ~/.bashrc
+    python3 setup_runcom.py $selected_config
+
+
+
+    ##ws=$(get_ws $selected_config)
+    ##export conf=$ws/ffr_configure.sh
+    ##export temp=$ws/tmule_temp.sh
+    ##. bash_config.sh
+    ##clear_ros $conf
+
+
+
+
+    # Define location for TMuLe to access shared information on launch
+    #????? echo 'source $ws/SHARE?' >> ~/.bashrc?????
+
 }
+
 function opt_1control_1manage() {
     echo "Option [1]; Manage selected."
 
@@ -87,6 +115,7 @@ function opt_1control_1manage() {
     # TMuLe Control selected
     if [[ ${option_1_1} = '0' ]] ; then
         opt_1control_1manage_0tmule
+
     # Git Control selected
     elif [[ ${option_1_1} = '1' ]] ; then
         opt_1control_1manage_1git
@@ -153,17 +182,11 @@ function opt_1control_1manage_0tmule_1action() {
         read -p "# " option_1_1_0_1
     fi
 
-    function set_source () {
-        echo 'source $WS_DIR/$1/install/setup.bash' > ~/.field_source ;
-    }
-    function farm () { set_source farm_ws ; tmule -c $farmTm $1 ; }
-    function field () { set_source $1_ws ; tmule -c $fieldTm $2 ; rename $1 ; }
-    function f1 () { field waled_garden; }
-
     # Git Control selected
     export session_name=$(echo ${short_ws} | sed "s|/|_|g")
     if [[ ${option_1_1_0_1} = '0' ]] ; then
         echo "Option [0]; TMuLe Launch selected."
+        echo 'source $ws/$short_ws/install/setup.bash' > ~/.field_source
         echo ""
         cd $selected_ws
         echo ""

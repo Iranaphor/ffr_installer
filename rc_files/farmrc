@@ -1,0 +1,23 @@
+#! /bin/bash
+
+# SET FARM IFORMATION
+export FARM_NAME='riseholme_park'
+export FARM_DATUM_LATITUDE='53.268617'
+export FARM_DATUM_LONGITUDE='-0.525699'
+
+# SET FARM VALUES
+export FARM_IP='0.0.0.0'
+export FARM_MQTT_BROKER_PORT='8886'
+export FARM_MQTT_NS=$FARM_NAME
+
+# SET DEFAULT ROS VALUES
+export ROS_DOMAIN_ID=200
+
+
+echo ""
+echo "FARM ENVIRONMENT VARIABLES SET"
+echo "    export FARM_IP=$FARM_IP"
+echo "    export FARM_MQTT_BROKER_PORT=$FARM_MQTT_BROKER_PORT"
+echo "    export FARM_MQTT_NS=$FARM_MQTT_NS"
+echo "    export ROS_DOMAIN_ID=$ROS_DOMAIN_ID"
+echo ""
