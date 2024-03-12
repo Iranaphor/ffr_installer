@@ -31,3 +31,4 @@ The script will construct each workspace and for each repository if it is privat
 it will request the username and github token as password.
 
 It will then add the required functinality to your ~/.bacshrc file.
+

@@ -1,5 +1,7 @@
-source ./git.sh
-source ./ffr.sh
+cur_dir="$(dirname "$BASH_SOURCE")"
+
+source $cur_dir/git.sh
+source $cur_dir/ffr.sh
 
 ##########
 # This script is to control the FFR workspaces.
@@ -183,19 +185,30 @@ function opt_1control_1manage_0tmule_1action() {
     fi
 
     # Git Control selected
+    export shorter_ws=$(echo ${short_ws} | sed "s|.*/||g")
     export session_name=$(echo ${short_ws} | sed "s|/|_|g")
+    export f="$ws/configuration/active_ffr_ws.sh"
     if [[ ${option_1_1_0_1} = '0' ]] ; then
         echo "Option [0]; TMuLe Launch selected."
-        echo 'source $ws/$short_ws/install/setup.bash' > ~/.field_source
         echo ""
+
+        # Write file for tmule panes to identify field
+        echo 'source $ws/$short_ws/install/setup.bash' > $f
+        echo "# -- temp file --" >> $f
+        echo "# This file was written by the ffr_tmule_manager." >> $f
+        echo "# This file may be overritten." >> $f
+        echo "# This file sources the active ffr workspace." >> $f
+        echo "" >> $f
+        echo "# Source to get the specified field" >> $f
+        echo "export FFR_ACTIVE_WS=$selected_ws" >> $f
+        echo "export FFR_ACTIVE_WS_PATH=$short_ws" >> $f
+        echo "export FFR_ACTIVE_WS_NAME=$shorter_ws" >> $f
+
+        # Launch tmule
         cd $selected_ws
-        echo ""
         tmule -c $selected_tmule launch
-        echo ""
-        cd $OLD_PWD
-        echo ""
+        cd -
         tmux rename-session -t $tmule_session $session_name
-        echo ""
 
     elif [[ ${option_1_1_0_1} = '1' ]] ; then
         echo "Option [1]; TMuLe Stop selected."

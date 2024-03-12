@@ -57,7 +57,7 @@ print('\n'*10)
 # Add to ~/.bashrc
 print("")
 print(f"Writing to: {bashrc_filepath}")
-with open(bashrc_filepath, 'w+') as f:
+with open(bashrc_filepath, 'a') as f:
     f.write("")
     f.write("# Source the FFR specialist runcom\n")
     f.write(f"source {ffr_selector_filepath}\n")
@@ -88,10 +88,13 @@ with open(general_runcom_filepath, 'w+') as f:
     f.write("export AMENT_PREFIX_PATH=\n")
     f.write("export CMAKE_PREFIX_PATH=\n")
     f.write("export COLCON_PREFIX_PATH=\n")
+    f.write("echo '| Resetting ROS sourcing'")
     f.write("source /opt/ros/humble/setup.bash\n")
+    f.write("echo '| Sourcing /opt/ros/humble'")
     f.write("\n")
     f.write("# Source the shared workspace\n")
     f.write(f"source {ws}/shared_ws/install/setup.bash\n")
+    f.write("echo '| Sourcing shared_ws'")
     f.write("\n")
 
 
@@ -107,7 +110,6 @@ with open(workspace_selector_filepath, 'w+') as f:
     f.write("# Source to get the specified field\n")
     f.write("export FFR_ACTIVE_WS=\n")
     f.write("export FFR_ACTIVE_WS_NAME=\n")
-    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/instance.sh\n")
     f.write("\n")
 
 
@@ -117,18 +119,18 @@ print(f"Wrtiing to: {instance_runcom_filepath}")
 with open(instance_runcom_filepath, 'w+') as f:
     f.write("\n")
     f.write("# Source the workspace selector to get the specified field\n")
-    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/ws_selector.sh\n")
-    f.write("echo 'Working in: $FFR_ACTIVE_WS'\n")
-    f.write("echo 'Working in ffr location: $FFR_ACTIVE_WS_NAME'\n")
+    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/active_ffr_ws.sh\n")
+    f.write('echo "Working in: $FFR_ACTIVE_WS"\n')
+    f.write('echo "Working in ffr location: $FFR_ACTIVE_WS_NAME"\n')
     f.write("\n")
     f.write("# Source the instance's workspace\n")
     f.write("source $FFR_ACTIVE_WS/install/setup.bash\n")
     f.write("\n")
     f.write("# Source the ENVIRONMENTS runcom file\n")
-    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/environment.sh\n")
+    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/scripts/environment_sourcer.sh\n")
     f.write("\n")
     f.write("# Source the ROS_DOMAIN_ID runcom file\n")
-    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/ros_domain_ids.sh\n")
+    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/scripts/ros_domain_ids.sh\n")
     f.write("\n")
     f.write("# Source the network runcom file\n")
     f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/scripts/networks.sh\n")
@@ -170,7 +172,7 @@ with open(ros_domain_ids_runcom_filepath, 'w+') as f:
     ws_name = config['farm']['ws_name']
     domain_id = config['farm']['ros_domain_id']
     f.write(f"## {ws_name}\n")
-    f.write(f"if [ $WS_NAME == '{ws_name}' ]\n")
+    f.write(f'if [ "$FFR_ACTIVE_WS_PATH" == "{ws_name}" ]\n')
     f.write("then\n")
     f.write(f"    export ROS_DOMAIN_ID={domain_id};\n")
     f.write("\n")
@@ -184,7 +186,7 @@ with open(ros_domain_ids_runcom_filepath, 'w+') as f:
 
         # Write to specialised runcom
         f.write(f"## {ws_name}\n")
-        f.write(f"elif [ $WS_NAME == '{ws_name}' ]\n")
+        f.write(f'elif [ "$FFR_ACTIVE_WS_PATH" == "fields/{ws_name}" ]\n')
         f.write("then\n")
         f.write(f"    export ROS_DOMAIN_ID={domain_id};\n")
         f.write("\n")
@@ -219,7 +221,7 @@ with open(networks_runcom_filepath, 'w+') as f:
 
     f.write("\n")
     f.write(f"## {name}\n")
-    f.write(f"if [ $WS_NAME == '{ws_name}' ]\n")
+    f.write(f'if [ "$FFR_ACTIVE_WS_PATH" == "{ws_name}" ]\n')
     f.write("then\n")
     f.write("    export FIELD_MQTT_IP=\n")
     f.write("    export FIELD_MQTT_PORT=\n")
@@ -235,7 +237,7 @@ with open(networks_runcom_filepath, 'w+') as f:
 
         # Write to specialised runcom
         f.write(f"## {ws_name}\n")
-        f.write(f"elif [ $WS_NAME == '{ws_name}' ]\n")
+        f.write(f'elif [ "$FFR_ACTIVE_WS_PATH" == "fields/{ws_name}" ]\n')
         f.write("then\n")
         f.write("    export FIELD_MQTT_IP=\n")
         f.write("    export FIELD_MQTT_PORT=\n")

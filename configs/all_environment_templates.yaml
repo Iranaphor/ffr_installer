@@ -1,6 +1,6 @@
 
 # Additional information to add to the ~/.bashrc file
-ws_dir: '/home/james/experiments/ros2_riseholme_park_fields_2'
+ws_dir: '/home/james/experiments/ros2_riseholme_park_fields_3'
 
 
 # Details on which repositories to construct used by both the fields and farm
@@ -110,7 +110,6 @@ fields:
     environment_template:
       repository: 'https://github.com/LCAS/environment_template'
       branch: 'riseholme_park_farm_riseholme_hall_east'
-
 
   - name: 'horse'
     ws_name: 'horse_ws'
