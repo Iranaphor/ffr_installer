@@ -9,16 +9,13 @@ shared:
   repositories:
 
   - url: 'https://github.com/iranaphor/farm_coordination_systems'
-    branch: 'main'
+    branch: 'ffr-installer-test'
 
   - url: 'https://github.com/lcas/environment_common'
     branch: 'main'
 
   - url: 'https://github.com/lcas/topological_navigation'
     branch: 'humble-dev'
-
-#  - url: 'https://github.com/lcas/environment_template'
-#    branch: 'main'
 
 
 # Details on how to construct the farm workspace
@@ -37,8 +34,7 @@ fields:
     ros_domain_id: 201
     repositories:
     - url: 'https://github.com/lcas/environment_template'
-      branch: 'riseholme_park_general_central_pathway'
-      #branch: 'riseholme_park_farm_general_central_pathway'
+      branch: 'riseholme_park_farm_general_central_pathway'
 
   - name: 'general_east_pathway'
     ws_name: 'general_east_pathway_ws'
@@ -46,8 +42,7 @@ fields:
     ros_domain_id: 202
     repositories:
     - url: 'https://github.com/lcas/environment_template'
-      branch: 'riseholme_park_general_east_pathway'
-      #branch: 'riseholme_park_farm_general_east_pathway'
+      branch: 'riseholme_park_farm_general_east_pathway'
 
   - name: 'north_roadway'
     ws_name: 'north_roadway_ws'
@@ -55,5 +50,4 @@ fields:
     ros_domain_id: 203
     repositories:
     - url: 'https://github.com/lcas/environment_template'
-      branch: 'riseholme_park_north_roadway'
-      #branch: 'riseholme_park_farm_north_roadway'
+      branch: 'riseholme_park_farm_north_roadway'

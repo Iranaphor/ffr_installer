@@ -18,7 +18,7 @@
 #   | sources $FFR_WORKSPACE_GROUP/configuration/networks.sh
 
 
-source $FFR_WORKSPACE_GROUP/configuration/scripts/instance.sh
+source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/scripts/instance.sh
 
 
 

@@ -73,7 +73,7 @@ with open(ffr_selector_filepath, 'w+') as f:
     f.write("# This file may be overritten.\n")
     f.write("# This file sources the active ffr group.\n")
     f.write("\n")
-    f.write(f"export FFR_WORKSPACE_ROOT={ws}\n")
+    f.write(f"export FFR_ACTIVE_WORKSPACE_GROUP={ws}\n")
     f.write(f"source {general_runcom_filepath}\n")
     f.write("\n")
 
@@ -107,7 +107,7 @@ with open(workspace_selector_filepath, 'w+') as f:
     f.write("# Source to get the specified field\n")
     f.write("export FFR_ACTIVE_WS=\n")
     f.write("export FFR_ACTIVE_WS_NAME=\n")
-    f.write("source $FFR_WORKSPACE_ROOT/configuration/instance.sh\n")
+    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/instance.sh\n")
     f.write("\n")
 
 
@@ -117,7 +117,7 @@ print(f"Wrtiing to: {instance_runcom_filepath}")
 with open(instance_runcom_filepath, 'w+') as f:
     f.write("\n")
     f.write("# Source the workspace selector to get the specified field\n")
-    f.write("source $FFR_WORKSPACE_ROOT/ws_selector.sh\n")
+    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/ws_selector.sh\n")
     f.write("echo 'Working in: $FFR_ACTIVE_WS'\n")
     f.write("echo 'Working in ffr location: $FFR_ACTIVE_WS_NAME'\n")
     f.write("\n")
@@ -125,13 +125,13 @@ with open(instance_runcom_filepath, 'w+') as f:
     f.write("source $FFR_ACTIVE_WS/install/setup.bash\n")
     f.write("\n")
     f.write("# Source the ENVIRONMENTS runcom file\n")
-    f.write("source $FFR_WORKSPACE_ROOT/configuration/environment.sh\n")
+    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/environment.sh\n")
     f.write("\n")
     f.write("# Source the ROS_DOMAIN_ID runcom file\n")
-    f.write("source $FFR_WORKSPACE_ROOT/configuration/ros_domain_ids.sh\n")
+    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/ros_domain_ids.sh\n")
     f.write("\n")
     f.write("# Source the network runcom file\n")
-    f.write("source $FFR_WORKSPACE_ROOT/configuration/scripts/networks.sh\n")
+    f.write("source $FFR_ACTIVE_WORKSPACE_GROUP/configuration/scripts/networks.sh\n")
     f.write("\n")
 
 

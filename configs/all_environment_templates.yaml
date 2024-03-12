@@ -1,0 +1,145 @@
+
+# Additional information to add to the ~/.bashrc file
+ws_dir: '/home/james/experiments/ros2_riseholme_park_fields_2'
+
+
+# Details on which repositories to construct used by both the fields and farm
+shared:
+  ws_name: 'shared_ws'
+  repositories:
+  - repository: 'https://github.com/lcas/environment_common'
+    branch: 'main'
+
+
+# Details on how to construct the farm workspace
+farm:
+  name: 'riseholme_park_farm'
+  ws_name: 'farm_ws'
+  ros_domain_id: 200
+  repositories: {}
+
+
+# Details on which workspaces to construct for individual fields
+fields:
+
+
+  - name: 'north_roadway'
+    ws_name: 'north_roadway_ws'
+    id: 1
+    ros_domain_id: 201
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_north_roadway'
+
+  - name: '40_acre'
+    ws_name: '40_acre_ws'
+    id: 2
+    ros_domain_id: 202
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_40_acre'
+
+  - name: 'bullock_close'
+    ws_name: 'bullock_close_ws'
+    id: 3
+    ros_domain_id: 203
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_bullock_close'
+
+  - name: 'fruit_field_7'
+    ws_name: 'fruit_field_7_ws'
+    id: 4
+    ros_domain_id: 204
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_fruit_field_7'
+
+  - name: 'general_central_pathway'
+    ws_name: 'general_central_pathway_ws'
+    id: 5
+    ros_domain_id: 205
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_general_central_pathway'
+
+  - name: 'general_east_pathway'
+    ws_name: 'general_east_pathway_ws'
+    id: 6
+    ros_domain_id: 206
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_general_east_pathway'
+
+  - name: 'general_south_pathway'
+    ws_name: 'general_south_pathway_ws'
+    id: 7
+    ros_domain_id: 207
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_general_south_pathway'
+
+  - name: 'hall_forrest'
+    ws_name: 'hall_forrest_ws'
+    id: 8
+    ros_domain_id: 208
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_hall_forrest'
+
+  - name: 'walled_garden'
+    ws_name: 'walled_garden_ws'
+    id: 9
+    ros_domain_id: 209
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_walled_garden'
+
+  - name: 'strawberry_polytunnels'
+    ws_name: 'strawberry_polytunnels_ws'
+    id: 10
+    ros_domain_id: 210
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_strawberry_polytunnels'
+
+  - name: 'riseholme_hall_east'
+    ws_name: 'riseholme_hall_east_ws'
+    id: 11
+    ros_domain_id: 211
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_riseholme_hall_east'
+
+
+  - name: 'horse'
+    ws_name: 'horse_ws'
+    id: 12
+    ros_domain_id: 212
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_horse'
+
+  - name: 'grange_32'
+    ws_name: 'grange_32_ws'
+    id: 13
+    ros_domain_id: 213
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_grange_32'
+
+  - name: 'mid_19'
+    ws_name: 'mid_19_ws'
+    id: 14
+    ros_domain_id: 214
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_mid_19'
+
+  - name: 'near_19'
+    ws_name: 'near_19_ws'
+    id: 15
+    ros_domain_id: 215
+    environment_template:
+      repository: 'https://github.com/LCAS/environment_template'
+      branch: 'riseholme_park_farm_near_19'
